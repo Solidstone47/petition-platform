@@ -1,0 +1,2390 @@
+/* =========================================================
+   PETITION PLATFORM
+   TANZANIA-INSPIRED GLOBAL THEME
+========================================================= */
+
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+    /* Tanzania-inspired brand colors */
+
+    --primary: #006b3f;
+    --primary-dark: #004d2c;
+    --primary-light: #e8f5ee;
+
+    --gold: #fcd116;
+    --gold-dark: #d9ad00;
+    --gold-light: #fff8d6;
+
+    --blue: #1eb4d4;
+    --blue-dark: #087f9d;
+    --blue-light: #e6f8fc;
+
+
+    /* Neutral colors */
+
+    --dark: #111827;
+    --text: #1f2937;
+    --text-muted: #64748b;
+
+    --background: #f7f9f8;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+
+
+    /* Status colors */
+
+    --success: #15803d;
+    --danger: #dc2626;
+    --warning: #d97706;
+
+
+    /* Effects */
+
+    --shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+
+    --shadow-hover:
+        0 8px 25px rgba(0, 0, 0, 0.10);
+
+    --radius: 10px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+
+    color: var(--primary);
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+a:hover {
+
+    color: var(--primary-dark);
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   MAIN NAVIGATION
+========================================================= */
+
+.main-nav {
+
+    position: relative;
+
+    z-index: 1000;
+
+    width: 100%;
+
+    min-height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 30px;
+
+    background: var(--primary);
+
+    border-bottom:
+        4px solid var(--gold);
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   NAVIGATION BRAND
+========================================================= */
+
+.nav-brand {
+
+    position: absolute;
+
+    left: 30px;
+
+    top: 0;
+
+    height: 66px;
+
+    display: flex;
+
+    align-items: center;
+
+    margin: 0;
+
+    z-index: 1002;
+}
+
+
+.nav-brand a {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 0;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+.nav-brand a:hover {
+
+    color: #ffffff;
+
+    background: transparent;
+}
+
+
+/* =========================================================
+   CENTER NAVIGATION
+========================================================= */
+
+.nav-center {
+
+    position: relative;
+
+    z-index: 1001;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   NAVIGATION TABS
+   WHITE BACKGROUND
+========================================================= */
+
+.nav-center a {
+
+    position: relative;
+
+    z-index: 1002;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 17px;
+
+    margin: 0;
+
+    color: var(--primary);
+
+    background: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+
+    line-height: 1.6;
+
+    cursor: pointer;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.7);
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08);
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* =========================================================
+   NAVIGATION TAB HOVER
+========================================================= */
+
+.nav-center a:hover {
+
+    background: #f1f8f4;
+
+    color: var(--primary-dark);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.10);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTIVE PAGE
+========================================================= */
+
+.nav-center a[aria-current="page"] {
+
+    background: #ffffff;
+
+    color: var(--primary-dark);
+
+    font-weight: 700;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+========================================================= */
+
+.nav-center a.btn-gold {
+
+    background: var(--gold);
+
+    color: var(--dark);
+
+    border-color: var(--gold);
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+.nav-center a.btn-gold:hover {
+
+    background: var(--gold-dark);
+
+    color: var(--dark);
+
+    box-shadow:
+        0 4px 12px rgba(252, 209, 22, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FLAG AREA
+========================================================= */
+
+.nav-flag {
+
+    position: absolute;
+
+    right: 30px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 52px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 1003;
+
+    overflow: hidden;
+
+    border-radius: 6px;
+}
+
+
+.nav-flag img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+.nav-flag svg {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+main {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 45px auto;
+
+    padding: 0 25px;
+}
+
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    color: var(--dark);
+
+    line-height: 1.3;
+
+    margin-bottom: 15px;
+}
+
+
+h1 {
+    font-size: 36px;
+}
+
+
+h2 {
+    font-size: 27px;
+}
+
+
+h3 {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   PARAGRAPHS
+========================================================= */
+
+p {
+
+    margin-bottom: 12px;
+
+    color: var(--text-muted);
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+
+    margin-bottom: 40px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+article {
+
+    background: var(--surface);
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+article:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        var(--shadow-hover);
+}
+
+
+/* =========================================================
+   PRIMARY BUTTONS
+========================================================= */
+
+button,
+.btn {
+
+    display: inline-block;
+
+    padding:
+        11px 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background:
+        var(--primary);
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease,
+        box-shadow 0.2s ease;
+}
+
+
+button:hover,
+.btn:hover {
+
+    background:
+        var(--primary-dark);
+
+    color:
+        #ffffff;
+
+    text-decoration:
+        none;
+
+    box-shadow:
+        0 4px 12px rgba(0, 107, 63, 0.25);
+}
+
+
+button:active,
+.btn:active {
+
+    transform:
+        translateY(1px);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.btn-secondary {
+
+    background:
+        #ffffff;
+
+    color:
+        var(--primary);
+
+    border:
+        1px solid var(--primary);
+}
+
+
+.btn-secondary:hover {
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary-dark);
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   GOLD ACCENT BUTTON
+========================================================= */
+
+.btn-gold {
+
+    background:
+        var(--gold);
+
+    color:
+        var(--dark);
+}
+
+
+.btn-gold:hover {
+
+    background:
+        var(--gold-dark);
+
+    color:
+        var(--dark);
+
+    box-shadow:
+        0 4px 12px rgba(252, 209, 22, 0.25);
+}
+
+
+/* =========================================================
+   BLUE ACCENT BUTTON
+========================================================= */
+
+.btn-blue {
+
+    background:
+        var(--blue);
+
+    color:
+        #ffffff;
+}
+
+
+.btn-blue:hover {
+
+    background:
+        var(--blue-dark);
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================================
+   DANGER BUTTON
+========================================================= */
+
+.btn-danger {
+
+    background:
+        var(--danger);
+
+    color:
+        #ffffff;
+}
+
+
+.btn-danger:hover {
+
+    background:
+        #b91c1c;
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+form {
+
+    width:
+        100%;
+
+    max-width:
+        600px;
+}
+
+
+label {
+
+    display:
+        block;
+
+    margin-bottom:
+        6px;
+
+    color:
+        var(--dark);
+
+    font-weight:
+        600;
+}
+
+
+input,
+textarea,
+select {
+
+    width:
+        100%;
+
+    padding:
+        12px 14px;
+
+    margin-bottom:
+        18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        7px;
+
+    background:
+        #ffffff;
+
+    color:
+        var(--text);
+
+    font-family:
+        inherit;
+
+    font-size:
+        15px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+textarea {
+
+    min-height:
+        150px;
+
+    resize:
+        vertical;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+
+    color:
+        #94a3b8;
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+
+    outline:
+        none;
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(0, 107, 63, 0.12);
+}
+
+
+/* =========================================================
+   CHECKBOXES / RADIO BUTTONS
+========================================================= */
+
+input[type="checkbox"],
+input[type="radio"] {
+
+    width:
+        auto;
+
+    margin-right:
+        6px;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+progress {
+
+    width:
+        100%;
+
+    height:
+        18px;
+
+    accent-color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+table {
+
+    width:
+        100%;
+
+    border-collapse:
+        collapse;
+
+    background:
+        var(--surface);
+
+    border-radius:
+        var(--radius);
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+th,
+td {
+
+    padding:
+        13px 15px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    text-align:
+        left;
+}
+
+
+th {
+
+    background:
+        var(--primary);
+
+    color:
+        #ffffff;
+
+    font-weight:
+        600;
+}
+
+
+td {
+
+    color:
+        var(--text);
+}
+
+
+tr:last-child td {
+
+    border-bottom:
+        none;
+}
+
+
+tr:hover td {
+
+    background:
+        #f4faf7;
+}
+
+
+/* =========================================================
+   FLASH MESSAGE
+========================================================= */
+
+.flash {
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        25px;
+
+    border-radius:
+        8px;
+
+    background:
+        var(--primary-light);
+
+    border:
+        1px solid #b7dfc8;
+
+    color:
+        var(--primary-dark);
+}
+
+
+.flash p {
+
+    margin-bottom:
+        0;
+
+    color:
+        var(--primary-dark);
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+========================================================= */
+
+.success {
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        20px;
+
+    border-radius:
+        8px;
+
+    background:
+        #f0fdf4;
+
+    border:
+        1px solid #bbf7d0;
+
+    color:
+        #166534;
+}
+
+
+.success p {
+
+    margin-bottom:
+        0;
+
+    color:
+        #166534;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.error {
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        20px;
+
+    border-radius:
+        8px;
+
+    background:
+        #fef2f2;
+
+    border:
+        1px solid #fecaca;
+
+    color:
+        #991b1b;
+}
+
+
+.error p {
+
+    margin-bottom:
+        0;
+
+    color:
+        #991b1b;
+}
+
+
+/* =========================================================
+   WARNING MESSAGE
+========================================================= */
+
+.warning {
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        20px;
+
+    border-radius:
+        8px;
+
+    background:
+        var(--gold-light);
+
+    border:
+        1px solid #fde68a;
+
+    color:
+        #92400e;
+}
+
+
+.warning p {
+
+    margin-bottom:
+        0;
+
+    color:
+        #92400e;
+}
+
+
+/* =========================================================
+   INFO MESSAGE
+========================================================= */
+
+.info {
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        20px;
+
+    border-radius:
+        8px;
+
+    background:
+        var(--blue-light);
+
+    border:
+        1px solid #a5e4f1;
+
+    color:
+        var(--blue-dark);
+}
+
+
+.info p {
+
+    margin-bottom:
+        0;
+
+    color:
+        var(--blue-dark);
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+
+    display:
+        inline-block;
+
+    padding:
+        4px 10px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary-dark);
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+}
+
+
+.badge-success {
+
+    background:
+        #dcfce7;
+
+    color:
+        #166534;
+}
+
+
+.badge-warning {
+
+    background:
+        #fef3c7;
+
+    color:
+        #92400e;
+}
+
+
+.badge-danger {
+
+    background:
+        #fee2e2;
+
+    color:
+        #991b1b;
+}
+
+
+.badge-blue {
+
+    background:
+        var(--blue-light);
+
+    color:
+        var(--blue-dark);
+}
+
+
+/* =========================================================
+   GOLD ACCENT
+========================================================= */
+
+.accent-gold {
+
+    color:
+        var(--gold-dark);
+}
+
+
+.border-gold {
+
+    border-color:
+        var(--gold);
+}
+
+
+/* =========================================================
+   BLUE ACCENT
+========================================================= */
+
+.accent-blue {
+
+    color:
+        var(--blue-dark);
+}
+
+
+.border-blue {
+
+    border-color:
+        var(--blue);
+}
+
+
+/* =========================================================
+   HORIZONTAL RULE
+========================================================= */
+
+hr {
+
+    border:
+        0;
+
+    border-top:
+        1px solid var(--border);
+
+    margin:
+        30px 0;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+
+    width:
+        100%;
+
+    max-width:
+        1100px;
+
+    margin:
+        0 auto;
+
+    padding:
+        0 25px;
+}
+
+
+/* =========================================================
+   FLEX UTILITIES
+========================================================= */
+
+.flex {
+
+    display:
+        flex;
+}
+
+
+.flex-between {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+}
+
+
+.flex-center {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+}
+
+
+.gap-1 {
+
+    gap:
+        10px;
+}
+
+
+.gap-2 {
+
+    gap:
+        20px;
+}
+
+
+.gap-3 {
+
+    gap:
+        30px;
+}
+
+
+/* =========================================================
+   TEXT UTILITIES
+========================================================= */
+
+.text-center {
+
+    text-align:
+        center;
+}
+
+
+.text-muted {
+
+    color:
+        var(--text-muted);
+}
+
+
+.text-primary {
+
+    color:
+        var(--primary);
+}
+
+
+.text-dark {
+
+    color:
+        var(--dark);
+}
+
+
+/* =========================================================
+   SPACING UTILITIES
+========================================================= */
+
+.mt-1 {
+
+    margin-top:
+        10px;
+}
+
+
+.mt-2 {
+
+    margin-top:
+        20px;
+}
+
+
+.mt-3 {
+
+    margin-top:
+        30px;
+}
+
+
+.mb-1 {
+
+    margin-bottom:
+        10px;
+}
+
+
+.mb-2 {
+
+    margin-bottom:
+        20px;
+}
+
+
+.mb-3 {
+
+    margin-bottom:
+        30px;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    table {
+
+        display:
+            block;
+
+        overflow-x:
+            auto;
+
+        white-space:
+            nowrap;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE MAIN
+========================================================= */
+
+@media (max-width: 768px) {
+
+    main {
+
+        margin:
+            30px auto;
+
+        padding:
+            0 16px;
+    }
+
+
+    .container {
+
+        padding:
+            0 16px;
+    }
+
+
+    h1 {
+
+        font-size:
+            30px;
+    }
+
+
+    h2 {
+
+        font-size:
+            23px;
+    }
+
+
+    article {
+
+        padding:
+            20px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .main-nav {
+
+        min-height:
+            auto;
+
+        padding:
+            12px 16px;
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+    }
+
+
+    .nav-brand {
+
+        position:
+            static;
+
+        height:
+            auto;
+
+        margin-bottom:
+            10px;
+    }
+
+
+    .nav-center {
+
+        width:
+            100%;
+
+        flex-wrap:
+            wrap;
+
+        justify-content:
+            center;
+
+        gap:
+            5px;
+    }
+
+
+    .nav-center a {
+
+        padding:
+            8px 12px;
+    }
+
+
+    .nav-flag {
+
+        position:
+            static;
+
+        transform:
+            none;
+
+        margin-top:
+            10px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nav-center {
+
+        flex-direction:
+            column;
+
+        width:
+            100%;
+    }
+
+
+    .nav-center a {
+
+        width:
+            100%;
+
+        text-align:
+            center;
+    }
+
+
+    main {
+
+        margin-top:
+            25px;
+    }
+
+
+    .nav-flag {
+
+        width:
+            48px;
+
+        height:
+            38px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+
+    outline:
+        3px solid rgba(252, 209, 22, 0.65);
+
+    outline-offset:
+        2px;
+}
+
+
+/* =========================================================
+   MODERN PETITION PROGRESS
+========================================================= */
+
+.petition-progress {
+
+    width:
+        100%;
+
+    max-width:
+        520px;
+
+    margin-top:
+        10px;
+}
+
+
+.petition-progress-track {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    height:
+        14px;
+
+    background:
+        #dfe9e4;
+
+    border-radius:
+        999px;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+
+.petition-progress-fill {
+
+    height:
+        100%;
+
+    min-width:
+        6px;
+
+    border-radius:
+        999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            #14965d
+        );
+
+    box-shadow:
+        0 2px 8px rgba(0, 107, 63, 0.25);
+
+    transition:
+        width 0.7s ease;
+}
+
+
+.petition-progress-info {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-top:
+        9px;
+
+    font-size:
+        14px;
+}
+
+
+.petition-progress-info span {
+
+    color:
+        var(--text-muted);
+}
+
+
+.petition-progress-info strong {
+
+    color:
+        var(--primary);
+
+    font-size:
+        15px;
+}
+
+
+/* =========================================================
+   PETITION PAGE PROGRESS
+========================================================= */
+
+article .petition-progress {
+
+    margin-left:
+        0;
+}
+
+
+/* =========================================================
+   PETITION PROGRESS — SMALL SCREENS
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .petition-progress {
+
+        max-width:
+            100%;
+    }
+
+
+    .petition-progress-track {
+
+        height:
+            12px;
+    }
+
+
+    .petition-progress-info {
+
+        font-size:
+            13px;
+    }
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-header {
+
+    margin-bottom:
+        25px;
+}
+
+
+.dashboard-header .badge {
+
+    margin-bottom:
+        12px;
+}
+
+
+.dashboard-header h1 {
+
+    font-size:
+        30px;
+
+    margin-bottom:
+        5px;
+}
+
+
+.dashboard-header p {
+
+    font-size:
+        15px;
+}
+
+
+/* =========================================================
+   DASHBOARD STATS
+========================================================= */
+
+.dashboard-stats {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap:
+        15px;
+
+    margin-bottom:
+        40px;
+}
+
+
+.dashboard-stat-card {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    padding:
+        18px;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.dashboard-stat-icon {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        10px;
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary);
+
+    font-size:
+        18px;
+
+    font-weight:
+        700;
+}
+
+
+.dashboard-stat-card strong {
+
+    display:
+        block;
+
+    color:
+        var(--dark);
+
+    font-size:
+        22px;
+
+    line-height:
+        1.2;
+}
+
+
+.dashboard-stat-card span {
+
+    display:
+        block;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+    margin-top:
+        3px;
+}
+
+
+/* =========================================================
+   DASHBOARD SECTION HEADING
+========================================================= */
+
+.dashboard-section-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    margin-bottom:
+        18px;
+}
+
+
+.dashboard-section-heading h2 {
+
+    margin-bottom:
+        4px;
+}
+
+
+.dashboard-section-heading p {
+
+    margin-bottom:
+        0;
+
+    font-size:
+        14px;
+}
+
+
+.dashboard-small-link {
+
+    color:
+        var(--primary);
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    white-space:
+        nowrap;
+}
+
+
+.dashboard-small-link:hover {
+
+    color:
+        var(--primary-dark);
+}
+
+
+/* =========================================================
+   DASHBOARD PETITION GRID
+========================================================= */
+
+.dashboard-petition-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap:
+        18px;
+}
+
+
+/* =========================================================
+   DASHBOARD PETITION CARD
+========================================================= */
+
+.dashboard-petition-card {
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    padding:
+        20px;
+
+    margin-bottom:
+        0;
+
+    box-shadow:
+        var(--shadow);
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    min-width:
+        0;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.dashboard-petition-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        var(--shadow-hover);
+
+    border-color:
+        rgba(0, 107, 63, 0.25);
+}
+
+
+/* =========================================================
+   DASHBOARD CARD TOP
+========================================================= */
+
+.dashboard-card-top {
+
+    margin-bottom:
+        10px;
+}
+
+
+/* =========================================================
+   DASHBOARD PETITION TITLE
+========================================================= */
+
+.dashboard-petition-title {
+
+    font-size:
+        17px;
+
+    line-height:
+        1.4;
+
+    margin-bottom:
+        15px;
+
+    min-height:
+        48px;
+}
+
+
+.dashboard-petition-title a {
+
+    color:
+        var(--dark);
+}
+
+
+.dashboard-petition-title a:hover {
+
+    color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   DASHBOARD SIGNATURE COUNT
+========================================================= */
+
+.dashboard-signature-count {
+
+    display:
+        flex;
+
+    align-items:
+        baseline;
+
+    gap:
+        6px;
+
+    margin-bottom:
+        12px;
+}
+
+
+.dashboard-signature-count strong {
+
+    color:
+        var(--primary);
+
+    font-size:
+        20px;
+}
+
+
+.dashboard-signature-count span {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================================
+   DASHBOARD PROGRESS
+========================================================= */
+
+.dashboard-progress {
+
+    width:
+        100%;
+}
+
+
+.dashboard-progress-track {
+
+    width:
+        100%;
+
+    height:
+        8px;
+
+    background:
+        #e7eee9;
+
+    border-radius:
+        999px;
+
+    overflow:
+        hidden;
+}
+
+
+.dashboard-progress-fill {
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            #159a61
+        );
+
+    border-radius:
+        999px;
+
+    transition:
+        width 0.5s ease;
+}
+
+
+.dashboard-progress-info {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    margin-top:
+        8px;
+
+    font-size:
+        12px;
+
+    color:
+        var(--text-muted);
+}
+
+
+.dashboard-progress-info strong {
+
+    color:
+        var(--success);
+}
+
+
+/* =========================================================
+   DASHBOARD CARD FOOTER
+========================================================= */
+
+.dashboard-card-footer {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    margin-top:
+        18px;
+
+    padding-top:
+        14px;
+
+    border-top:
+        1px solid var(--border);
+
+    font-size:
+        12px;
+
+    color:
+        var(--text-muted);
+}
+
+
+.dashboard-view-link {
+
+    color:
+        var(--primary);
+
+    font-weight:
+        600;
+
+    white-space:
+        nowrap;
+}
+
+
+.dashboard-view-link:hover {
+
+    color:
+        var(--primary-dark);
+}
+
+
+/* =========================================================
+   DASHBOARD EMPTY STATE
+========================================================= */
+
+.dashboard-empty {
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    padding:
+        40px 25px;
+
+    text-align:
+        center;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.dashboard-empty-icon {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin:
+        0 auto 12px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary);
+
+    font-size:
+        18px;
+}
+
+
+.dashboard-empty h3 {
+
+    font-size:
+        18px;
+
+    margin-bottom:
+        6px;
+}
+
+
+.dashboard-empty p {
+
+    font-size:
+        14px;
+
+    margin-bottom:
+        18px;
+}
+
+
+/* =========================================================
+   DASHBOARD ACCOUNT
+========================================================= */
+
+.dashboard-account-section {
+
+    margin-top:
+        40px;
+}
+
+
+.dashboard-account-card {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.dashboard-account-item {
+
+    padding:
+        18px 20px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.dashboard-account-item span {
+
+    display:
+        block;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+}
+
+
+.dashboard-account-item strong {
+
+    display:
+        block;
+
+    color:
+        var(--dark);
+
+    font-size:
+        14px;
+
+    word-break:
+        break-word;
+}
+
+
+/* =========================================================
+   DASHBOARD MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .dashboard-header h1 {
+
+        font-size:
+            26px;
+    }
+
+
+    .dashboard-section-heading {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap:
+            7px;
+    }
+
+
+    .dashboard-petition-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .dashboard-petition-card {
+
+        padding:
+            18px;
+    }
+
+
+    .dashboard-account-card {
+
+        grid-template-columns:
+            1fr;
+    }
+}
