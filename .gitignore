@@ -16,3 +16,5 @@ logs/
 *.sql
 *.zip
 *backup*
+
+!petition_platform.sql
