@@ -3,30 +3,7 @@
 require_once "includes/db.php";
 require_once "includes/functions.php";
 require_once "includes/auth.php";
-
-/*
-|--------------------------------------------------------------------------
-| GOOGLE OAUTH CONFIGURATION
-|--------------------------------------------------------------------------
-*/
-
-$google_client_id =
-    "62180751187-i9737ts81pqdnftnj1lf82bm2vs6prmm.apps.googleusercontent.com";
-
-/*
-|--------------------------------------------------------------------------
-| IMPORTANT
-|--------------------------------------------------------------------------
-| Put your NEW Google client secret here after regenerating it.
-|--------------------------------------------------------------------------
-*/
-
-$google_client_secret =
-    "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";
-
-$google_redirect_uri =
-    "http://localhost/petition_platform/google_callback.php";
-
+require_once "google_config.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -63,13 +40,13 @@ $token_data = [
         $code,
 
     "client_id" =>
-        $google_client_id,
+        GOOGLE_CLIENT_ID,
 
     "client_secret" =>
-        $google_client_secret,
+        GOOGLE_CLIENT_SECRET,
 
     "redirect_uri" =>
-        $google_redirect_uri,
+        GOOGLE_REDIRECT_URI,
 
     "grant_type" =>
         "authorization_code"
@@ -347,12 +324,6 @@ $stmt->close();
 |--------------------------------------------------------------------------
 | EXISTING GOOGLE ACCOUNT
 |--------------------------------------------------------------------------
-|
-| THIS IS THE IMPORTANT PART.
-|
-| If the Google account already exists, log the user in
-| immediately. Do NOT send them to register.php.
-|--------------------------------------------------------------------------
 */
 
 if ($user) {
@@ -368,14 +339,15 @@ if ($user) {
         (int) $user['password_reset_required'] === 1
     ) {
 
-        /*
-        ----------------------------------------------------------
-        Google accounts normally do not use a local password.
-        Therefore we simply allow the Google authentication
-        to continue.
-        ----------------------------------------------------------
-        */
+        $_SESSION['password_reset_user_id'] =
+            (int) $user['id'];
 
+        set_flash(
+            "error",
+            "Your password has been reset by an administrator. Please create a new password."
+        );
+
+        redirect("create_new_password.php");
     }
 
 
@@ -403,12 +375,6 @@ if ($user) {
 /*
 |--------------------------------------------------------------------------
 | CHECK WHETHER EMAIL ALREADY EXISTS
-|--------------------------------------------------------------------------
-|
-| The email may belong to a normal password account.
-|
-| We DO NOT automatically attach Google to it.
-|
 |--------------------------------------------------------------------------
 */
 
@@ -476,13 +442,6 @@ if ($existing_user) {
 /*
 |--------------------------------------------------------------------------
 | NEW GOOGLE USER
-|--------------------------------------------------------------------------
-|
-| This is a completely new account.
-|
-| Store the Google information temporarily and send the user
-| directly to the country/phone completion page.
-|
 |--------------------------------------------------------------------------
 */
 

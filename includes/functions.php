@@ -128,6 +128,22 @@ function format_date($date)
 
 
 /**
+ * Clear one or all cached settings so the next get_setting()
+ * call fetches a fresh value from the database.
+ */
+function clear_setting_cache($key = null)
+{
+    global $settings_cache;
+
+    if ($key === null) {
+        $settings_cache = [];
+    } else {
+        unset($settings_cache[$key]);
+    }
+}
+
+
+/**
  * Get one setting from the settings table.
  *
  * Expected table structure:
@@ -139,13 +155,15 @@ function format_date($date)
  */
 function get_setting($key, $default = '')
 {
-    global $conn;
+    global $conn, $settings_cache;
 
     if (!$conn || empty($key)) {
         return $default;
     }
 
-    static $settings_cache = [];
+    if (!isset($settings_cache)) {
+        $settings_cache = [];
+    }
 
     /*
      * Return cached value if already loaded.
@@ -153,6 +171,7 @@ function get_setting($key, $default = '')
     if (array_key_exists($key, $settings_cache)) {
         return $settings_cache[$key];
     }
+
 
     $stmt = $conn->prepare(
         "SELECT setting_value
@@ -195,6 +214,7 @@ function get_setting($key, $default = '')
 
     return $value;
 }
+
 
 
 /**
@@ -294,7 +314,7 @@ function update_setting($key, $value)
      * value is immediately available.
      */
     if ($success) {
-        unset($GLOBALS['__settings_cache'][$key]);
+        clear_setting_cache($key);
     }
 
     return $success;
@@ -350,4 +370,129 @@ function maintenance_mode()
         $value === true ||
         $value === 'true'
     );
+}
+
+
+/* ==========================================================
+   PETITION CATEGORY DETECTION
+   ========================================================== */
+
+
+/**
+ * Detect a petition category from its title and description.
+ *
+ * Returns one of: governance, education, health, environment,
+ * justice, infrastructure, economy, social, other.
+ */
+function detect_petition_category($title, $description)
+{
+    $text = mb_strtolower($title . ' ' . $description);
+
+    $categories = [
+
+        'governance'     => [
+            'government', 'parliament', 'minister', 'president',
+            'corruption', 'policy', 'election', 'democracy',
+            'transparency', 'accountability', 'public office',
+            'official', 'reform', 'constitution', 'law', 'rights',
+        ],
+
+        'education'      => [
+            'school', 'education', 'student', 'teacher', 'university',
+            'curriculum', 'exam', 'scholarship', 'classroom',
+            'literacy', 'tuition', 'fee', 'academic',
+        ],
+
+        'health'         => [
+            'health', 'hospital', 'clinic', 'doctor', 'medicine',
+            'disease', 'treatment', 'healthcare', 'mental health',
+            'vaccination', 'patient', 'nurse', 'pharmacy',
+        ],
+
+        'environment'    => [
+            'environment', 'climate', 'pollution', 'forest',
+            'deforestation', 'wildlife', 'conservation', 'water',
+            'air', 'waste', 'recycling', 'ecosystem', 'river',
+            'lake', 'energy', 'renewable',
+        ],
+
+        'justice'        => [
+            'justice', 'court', 'police', 'crime', 'legal',
+            'lawyer', 'prison', 'arrest', 'trial', 'judge',
+            'sentence', 'victim', 'investigation', 'law enforcement',
+        ],
+
+        'infrastructure' => [
+            'road', 'bridge', 'infrastructure', 'transport',
+            'bus', 'railway', 'airport', 'port', 'electricity',
+            'water supply', 'construction', 'building', 'traffic',
+        ],
+
+        'economy'        => [
+            'economy', 'tax', 'employment', 'job', 'salary',
+            'wage', 'business', 'trade', 'investment', 'poverty',
+            'inflation', 'cost of living', 'market', 'currency',
+        ],
+
+        'social'         => [
+            'women', 'children', 'youth', 'elderly', 'disability',
+            'gender', 'equality', 'discrimination', 'community',
+            'family', 'social', 'welfare', 'human rights',
+        ],
+    ];
+
+    $best_category = 'other';
+    $best_score    = 0;
+
+    foreach ($categories as $category => $keywords) {
+
+        $score = 0;
+
+        foreach ($keywords as $keyword) {
+            if (strpos($text, $keyword) !== false) {
+                $score++;
+            }
+        }
+
+        if ($score > $best_score) {
+            $best_score    = $score;
+            $best_category = $category;
+        }
+    }
+
+    return $best_category;
+}
+
+
+/* ==========================================================
+   PHONE NUMBER NORMALIZATION
+   ========================================================== */
+
+
+/**
+ * Normalize a Tanzanian phone number to +255XXXXXXXXX format.
+ *
+ * Accepts formats like:
+ *   0712345678
+ *   255712345678
+ *   +255712345678
+ *   255 712 345 678
+ */
+function normalize_phone_tz($phone)
+{
+    $phone = preg_replace('/[\s\-()]/', '', $phone);
+
+    if (strpos($phone, '+255') === 0) {
+        return $phone;
+    }
+
+    if (strpos($phone, '255') === 0 && strlen($phone) === 12) {
+        return '+' . $phone;
+    }
+
+    if (strpos($phone, '0') === 0 && strlen($phone) === 10) {
+        return '+255' . substr($phone, 1);
+    }
+
+    return $phone;
 }

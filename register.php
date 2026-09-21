@@ -3,6 +3,8 @@
 require_once "includes/db.php";
 require_once "includes/functions.php";
 require_once "includes/auth.php";
+require_once "google_config.php";
+require_once "includes/countries.php";
 
 
 /*
@@ -16,245 +18,6 @@ if (is_user_logged_in()) {
 }
 
 $errors = [];
-
-
-/*
-|--------------------------------------------------------------------------
-| GOOGLE OAUTH
-|--------------------------------------------------------------------------
-*/
-
-$google_client_id =
-    "62180751187-i9737ts81pqdnftnj1lf82bm2vs6prmm.apps.googleusercontent.com";
-
-$google_redirect_uri =
-    "http://localhost/petition_platform/google_callback.php";
-
-
-/*
-|--------------------------------------------------------------------------
-| GOOGLE AUTHORIZATION URL
-|--------------------------------------------------------------------------
-|
-| The button must first send the user to Google's authorization endpoint.
-| It must NOT point directly to google_callback.php.
-|
-*/
-
-$google_auth_url =
-    "https://accounts.google.com/o/oauth2/v2/auth?" .
-    http_build_query([
-        "client_id" => $google_client_id,
-        "redirect_uri" => $google_redirect_uri,
-        "response_type" => "code",
-        "scope" => "openid email profile",
-        "access_type" => "online",
-        "prompt" => "select_account"
-    ]);
-
-
-/*
-|--------------------------------------------------------------------------
-| COUNTRIES
-|--------------------------------------------------------------------------
-*/
-
-$countries = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra",
-    "Angola",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bhutan",
-    "Bolivia",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Brazil",
-    "Brunei",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Central African Republic",
-    "Chad",
-    "Chile",
-    "China",
-    "Colombia",
-    "Comoros",
-    "Congo",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Cyprus",
-    "Czechia",
-    "Democratic Republic of the Congo",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini",
-    "Ethiopia",
-    "Fiji",
-    "Finland",
-    "France",
-    "Gabon",
-    "Gambia",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Greece",
-    "Grenada",
-    "Guatemala",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
-    "Honduras",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Ireland",
-    "Israel",
-    "Italy",
-    "Ivory Coast",
-    "Jamaica",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kiribati",
-    "Kuwait",
-    "Laos",
-    "Latvia",
-    "Lebanon",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Maldives",
-    "Mali",
-    "Malta",
-    "Marshall Islands",
-    "Mauritania",
-    "Mauritius",
-    "Mexico",
-    "Micronesia",
-    "Moldova",
-    "Monaco",
-    "Mongolia",
-    "Montenegro",
-    "Morocco",
-    "Mozambique",
-    "Myanmar",
-    "Namibia",
-    "Nauru",
-    "Nepal",
-    "Netherlands",
-    "New Zealand",
-    "Nicaragua",
-    "Niger",
-    "Nigeria",
-    "North Korea",
-    "North Macedonia",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Palau",
-    "Palestine",
-    "Panama",
-    "Papua New Guinea",
-    "Paraguay",
-    "Peru",
-    "Philippines",
-    "Poland",
-    "Portugal",
-    "Qatar",
-    "Romania",
-    "Russia",
-    "Rwanda",
-    "Saint Kitts and Nevis",
-    "Saint Lucia",
-    "Saint Vincent and the Grenadines",
-    "Samoa",
-    "San Marino",
-    "Sao Tome and Principe",
-    "Saudi Arabia",
-    "Senegal",
-    "Serbia",
-    "Seychelles",
-    "Sierra Leone",
-    "Singapore",
-    "Slovakia",
-    "Slovenia",
-    "Solomon Islands",
-    "Somalia",
-    "South Africa",
-    "South Korea",
-    "South Sudan",
-    "Spain",
-    "Sri Lanka",
-    "Sudan",
-    "Suriname",
-    "Sweden",
-    "Switzerland",
-    "Syria",
-    "Tajikistan",
-    "Tanzania",
-    "Thailand",
-    "Timor-Leste",
-    "Togo",
-    "Tonga",
-    "Trinidad and Tobago",
-    "Tunisia",
-    "Türkiye",
-    "Turkmenistan",
-    "Tuvalu",
-    "Uganda",
-    "Ukraine",
-    "United Arab Emirates",
-    "United Kingdom",
-    "United States",
-    "Uruguay",
-    "Uzbekistan",
-    "Vanuatu",
-    "Vatican City",
-    "Venezuela",
-    "Vietnam",
-    "Yemen",
-    "Zambia",
-    "Zimbabwe"
-];
 
 
 /*
@@ -397,44 +160,7 @@ if (is_post()) {
 
             } else {
 
-                /*
-                |--------------------------------------------------------------------------
-                | Normalize to +255XXXXXXXXX
-                |--------------------------------------------------------------------------
-                */
-
-                if (
-                    substr(
-                        $clean_phone,
-                        0,
-                        1
-                    ) === '0'
-                ) {
-
-                    $phone =
-                        '+255' .
-                        substr(
-                            $clean_phone,
-                            1
-                        );
-
-                } elseif (
-                    substr(
-                        $clean_phone,
-                        0,
-                        3
-                    ) === '255'
-                ) {
-
-                    $phone =
-                        '+' .
-                        $clean_phone;
-
-                } else {
-
-                    $phone =
-                        $clean_phone;
-                }
+                $phone = normalize_phone_tz($clean_phone);
             }
         }
 
@@ -610,8 +336,7 @@ if (is_post()) {
 
 } else {
 
-    $_POST['country'] =
-        $selected_country;
+    $prefill_country = $selected_country;
 }
 
 ?>
@@ -1485,7 +1210,7 @@ if (is_post()) {
             <!-- GOOGLE -->
 
             <a
-                href="<?= e($google_auth_url) ?>"
+                href="<?= e(google_auth_url()) ?>"
                 class="social-button"
             >
 
@@ -1689,7 +1414,7 @@ if (is_post()) {
                         <option
                             value="<?= e($country_option) ?>"
                             <?= (
-                                ($_POST['country'] ?? '') === $country_option
+                                ($_POST['country'] ?? $prefill_country ?? '') === $country_option
                             ) ? 'selected' : '' ?>
                         >
                             <?= e($country_option) ?>

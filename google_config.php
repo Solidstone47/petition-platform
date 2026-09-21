@@ -3,33 +3,48 @@
 // ======================================================
 // GOOGLE OAUTH CONFIGURATION
 // ======================================================
+//
+// All Google OAuth credentials are read from environment
+// variables so they are never hardcoded in source files.
+//
+// Required environment variables:
+//
+//   GOOGLE_CLIENT_ID
+//   GOOGLE_CLIENT_SECRET
+//   GOOGLE_REDIRECT_URI
+//
+// ======================================================
 
 define(
     'GOOGLE_CLIENT_ID',
-    '62180751187-i9737ts81pqdnftnj1lf82bm2vs6prmm.apps.googleusercontent.com'
+    getenv('GOOGLE_CLIENT_ID') ?: ''
 );
-
-
-// ======================================================
-// GOOGLE CLIENT SECRET
-// ======================================================
-//
-// IMPORTANT:
-// Replace the value below with the FULL client secret
-// shown in Google Cloud Console.
-//
 
 define(
     'GOOGLE_CLIENT_SECRET',
-    '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'
+    getenv('GOOGLE_CLIENT_SECRET') ?: ''
 );
-
-
-// ======================================================
-// GOOGLE REDIRECT URI
-// ======================================================
 
 define(
     'GOOGLE_REDIRECT_URI',
-    'http://localhost/petition_platform/google_callback.php'
+    getenv('GOOGLE_REDIRECT_URI') ?: 'http://localhost/petition_platform/google_callback.php'
 );
+
+// ======================================================
+// GOOGLE AUTHORIZATION URL BUILDER
+// ======================================================
+
+function google_auth_url()
+{
+    $params = [
+        'client_id'     => GOOGLE_CLIENT_ID,
+        'redirect_uri'  => GOOGLE_REDIRECT_URI,
+        'response_type' => 'code',
+        'scope'         => 'openid email profile',
+        'access_type'   => 'online',
+        'prompt'        => 'select_account'
+    ];
+
+    return 'https://accounts.google.com/o/oauth2/v2/auth?'
+        . http_build_query($params);
+}

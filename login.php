@@ -3,6 +3,7 @@
 require_once "includes/db.php";
 require_once "includes/functions.php";
 require_once "includes/auth.php";
+require_once "google_config.php";
 
 
 // ======================================================
@@ -19,14 +20,97 @@ $errors = [];
 
 
 // ======================================================
-// GOOGLE OAUTH
+// LOGIN RATE LIMITING
 // ======================================================
 
-$google_client_id =
-    "62180751187-i9737ts81pqdnftnj1lf82bm2vs6prmm.apps.googleusercontent.com";
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$max_attempts = 5;
+$lockout_minutes = 15;
+$lockout_seconds = $lockout_minutes * 60;
 
-$google_redirect_uri =
-    "http://localhost/petition_platform/google_callback.php";
+if (is_post()) {
+
+    $stmt = $conn->prepare("
+        SELECT attempts, last_attempt
+        FROM login_attempts
+        WHERE ip_address = ?
+        LIMIT 1
+    ");
+
+    if ($stmt) {
+
+        $stmt->bind_param("s", $ip);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $attempt_row = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($attempt_row) {
+
+            $attempts = (int) $attempt_row['attempts'];
+
+            $time_since = time() - strtotime($attempt_row['last_attempt']);
+
+            if ($attempts >= $max_attempts && $time_since < $lockout_seconds) {
+
+                $minutes_left = ceil(($lockout_seconds - $time_since) / 60);
+
+                $errors[] =
+                    "Too many failed login attempts. "
+                    . "Please try again in {$minutes_left} minute(s).";
+
+            } elseif ($time_since >= $lockout_seconds) {
+
+                $conn->query("
+                    DELETE FROM login_attempts
+                    WHERE ip_address = '"
+                    . $conn->real_escape_string($ip)
+                    . "'
+                ");
+            }
+        }
+    }
+}
+
+
+// ======================================================
+// RECORD FAILED ATTEMPT
+// ======================================================
+
+function record_failed_login($ip_address)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("
+        INSERT INTO login_attempts (ip_address, attempts, last_attempt)
+        VALUES (?, 1, NOW())
+        ON DUPLICATE KEY UPDATE
+            attempts = attempts + 1,
+            last_attempt = NOW()
+    ");
+
+    if ($stmt) {
+        $stmt->bind_param("s", $ip_address);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+function clear_failed_logins($ip_address)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("
+        DELETE FROM login_attempts
+        WHERE ip_address = ?
+    ");
+
+    if ($stmt) {
+        $stmt->bind_param("s", $ip_address);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
 
 
 // ======================================================
@@ -146,6 +230,8 @@ if (is_post()) {
                     )
                 ) {
 
+                    clear_failed_logins($ip);
+
                     login_user(
                         $user['id']
                     );
@@ -161,6 +247,8 @@ if (is_post()) {
 
                 } else {
 
+                    record_failed_login($ip);
+
                     $errors[] =
                         "Invalid email or password.";
 
@@ -168,6 +256,8 @@ if (is_post()) {
 
 
             } else {
+
+                record_failed_login($ip);
 
                 $errors[] =
                     "Invalid email or password.";
@@ -1356,7 +1446,7 @@ if (is_post()) {
             ================================================== -->
 
             <a
-                href="google_login.php"
+                href="<?= e(google_auth_url()) ?>"
                 class="social-button"
             >
 
